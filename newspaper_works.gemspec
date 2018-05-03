@@ -27,4 +27,6 @@ SUMMARY
   spec.add_development_dependency 'engine_cart', '~> 2.0'
   spec.add_development_dependency 'solr_wrapper', '~> 0.4'
   spec.add_development_dependency 'fcrepo_wrapper', '~> 0.1'
+  # the hyrax style guide is based on `bixby`. see `.rubocop.yml`
+  spec.add_development_dependency 'bixby', '~> 1.0.0'
 end

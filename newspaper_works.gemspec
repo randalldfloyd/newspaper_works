@@ -29,7 +29,7 @@ SUMMARY
   spec.add_development_dependency 'fcrepo_wrapper', '~> 0.1'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-rails', '~> 3.1'
-  spec.add_development_dependency 'rubocop', '~> 0.55'
+  spec.add_development_dependency 'rubocop', '~> 0.50'
   spec.add_development_dependency 'solr_wrapper', '~> 0.4'
   spec.add_development_dependency 'sqlite3'
 end

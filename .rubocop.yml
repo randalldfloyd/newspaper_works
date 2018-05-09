@@ -1,134 +1,96 @@
-inherit_gem:
-  bixby: bixby_default.yml
-
-#inherit_from: .rubocop_fixme.yml
-
 AllCops:
-  TargetRubyVersion: 2.1
-  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.4
+
   Exclude:
-    - 'db/**/*'
-    - 'script/**/*'
-    - 'spec/test_app_templates/**/*'
-    - 'vendor/**/*'
-    - 'lib/hyrax/specs/**/*'
+    - "db/schema.rb"
+    - "vendor/**/*"
+    - "frontend/**/*"
 
-Lint/ImplicitStringConcatenation:
+# ref. https://github.com/bbatsov/ruby-style-guide#indent-conditional-assignment
+Layout/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: keyword
+  AutoCorrect: true
+
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+# e.g. it { expect{ subject }.to change { foo }
+Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'lib/generators/hyrax/**/*'
+    - "spec/**/*_spec.rb"
 
-Metrics/BlockLength:
-  ExcludedMethods: ['included']
-  Exclude:
-    - 'hyrax.gemspec'
-    - 'app/models/concerns/hyrax/content_block_behavior.rb'
-    - 'app/services/hyrax/workflow/workflow_schema.rb'
-    - 'config/initializers/simple_form.rb'
-    - 'config/features.rb'
-    - 'config/routes.rb'
-    - 'lib/generators/hyrax/templates/catalog_controller.rb'
-    - 'lib/generators/hyrax/templates/config/initializers/simple_form_bootstrap.rb'
-    - 'lib/hyrax/rails/routes.rb'
-    - 'lib/tasks/*.rake'
-    - 'spec/**/*.rb'
-
-# Naming/FileName: # https://github.com/bbatsov/rubocop/issues/2973
-#   Exclude:
-#     - 'Gemfile'
-
-Style/AsciiComments:
+# Allow variable name starting with "_"
+Lint/UnderscorePrefixedVariableName:
   Enabled: false
 
-Style/CollectionMethods:
-  PreferredMethods:
-    collect: 'map'
-    collect!: 'map!'
-    inject: 'reduce'
-    detect: 'find'
-    find_all: 'select'
-
-Style/MethodMissing:
+Metrics/BlockLength:
+  CountComments: false
+  Max: 50
   Exclude:
-    - 'app/models/concerns/hyrax/file_set/characterization.rb'
+    - "config/routes.rb"
+    - "Gemfile"
+    - "Guardfile"
+    - "Rakefile"
+    - "spec/**/*.rb"
 
-Style/NumericPredicate:
+Metrics/AbcSize:
+  Max: 24
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 200
+
+Metrics/LineLength:
+  Max: 120
   Exclude:
-    - 'app/controllers/hyrax/file_sets_controller.rb'
+    - "db/migrate/*"
 
-Style/SymbolArray:
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - "db/migrate/*"
+
+# Allow methods starting with "has_"
+Naming/PredicateName:
+  NamePrefixBlacklist:
+    - "is_"
+    - "have_"
+  NamePrefix:
+    - "is_"
+    - "have_"
+
+# Allow Japanese comments
+Style/AsciiComments:
   Enabled: false
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Style/SingleLineBlockParams:
+Style/Documentation:
   Enabled: false
 
-Style/ZeroLengthPredicate:
+Style/GuardClause:
+  MinBodyLength: 5
+
+Style/MixinUsage:
   Exclude:
-    - 'app/controllers/hyrax/file_sets_controller.rb'
+    - "bin/setup"
+    - "bin/update"
 
-Rails/ApplicationJob:
-  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
 
-Rails/ApplicationRecord:
-  Enabled: false
+# Prefer trailing comma
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
 
-# We define custom methods like `find_by_user_key`,
-# `find_by_created_date`, etc
-Rails/DynamicFindBy:
-  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
 
-Rails/FilePath:
-  Exclude:
-    - 'spec/abilities/**/*'
-
-Rails/OutputSafety:
-  Exclude:
-    - 'app/builders/hyrax/form_builder.rb'
-    - 'app/helpers/hyrax/citations_behaviors/formatters/apa_formatter.rb'
-    - 'app/helpers/hyrax/citations_behaviors/formatters/chicago_formatter.rb'
-    - 'app/helpers/hyrax/citations_behaviors/formatters/mla_formatter.rb'
-    - 'app/helpers/hyrax/collections_helper.rb'
-    - 'app/helpers/hyrax/content_block_helper_behavior.rb'
-    - 'app/helpers/hyrax/hyrax_helper_behavior.rb'
-    - 'app/presenters/hyrax/fixity_status_presenter.rb'
-    - 'app/presenters/hyrax/presents_attributes.rb'
-    - 'app/renderers/hyrax/renderers/attribute_renderer.rb'
-    - 'spec/views/hyrax/my/works/_list_works.html.erb_spec.rb'
-
-RSpec/DescribeClass:
-  Exclude:
-    - 'spec/abilities/**/*'
-    - 'spec/config/hyrax_events_spec.rb'
-    - 'spec/conversions/**/*'
-    - 'spec/features/**/*'
-    - 'spec/inputs/**/*'
-    - 'spec/javascripts/jasmine_spec.rb'
-    - 'spec/tasks/rake_spec.rb'
-    - 'spec/views/**/*'
-
-# # By default RSpec/MessageSpies has the following:
-# #   Prefer have_received for setting message expectations. Setup form as a spy using allow or instance_spy.
-# # The default assumes EnforcedStyle is 'have_received'. Most of our specs are 'receive'
-RSpec/MessageSpies:
-  Enabled: false
-
-RSpec/InstanceVariable:
-  Exclude:
-    - 'spec/services/hyrax/derivative_service_spec.rb'
-
-RSpec/ExpectActual:
-  Enabled: false
-
-RSpec/LetSetup:
-  Enabled: false
-
-RSpec/MessageExpectation:
-  Enabled: false
-
-RSpec/NestedGroups:
-  Enabled: false
-
-RSpec/LeadingSubject:
-  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

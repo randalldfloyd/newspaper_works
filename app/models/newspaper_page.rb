@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewspaperPage < ActiveFedora::Base
   # WorkBehavior mixes in minimal ::Hyrax::CoreMetadata fields of
   # depositor, title, date_uploaded, and date_modified.
@@ -12,9 +14,9 @@ class NewspaperPage < ActiveFedora::Base
 
   # Validation and required fields:
   # self.required_fields = [:height, :width]
-  validates :title, presence: { message: 'A newspaper page requires a title.' }
+  validates :title, presence: { message: "A newspaper page requires a title." }
 
-  self.human_readable_type = 'Newspaper Page'
+  self.human_readable_type = "Newspaper Page"
 
   # == Type-specific properties ==
 
@@ -47,26 +49,21 @@ class NewspaperPage < ActiveFedora::Base
   def publication
     # try transitive relation via issue first:
     issues = self.issues
-    if issues.length > 0
-      return issues[0].publication
-    end
-    # fallback to trying to see if there is an issue-less container with title: 
+    return issues[0].publication unless issues.empty?
+    # fallback to trying to see if there is an issue-less container with title:
     containers = self.containers
-    if containers.length > 0
-      return containers[0].publication
-    end
+    return containers[0].publication unless containers.empty?
   end
 
   def articles
-    self.member_of.select { |v| v.instance_of?(NewspaperArticle) }
+    member_of.select { |v| v.instance_of?(NewspaperArticle) }
   end
 
   def issues
-    self.member_of.select { |v| v.instance_of?(NewspaperIssue) }
+    member_of.select { |v| v.instance_of?(NewspaperIssue) }
   end
 
   def containers
-    self.member_of.select { |v| v.instance_of?(NewspaperContainer) }
+    member_of.select { |v| v.instance_of?(NewspaperContainer) }
   end
-
 end

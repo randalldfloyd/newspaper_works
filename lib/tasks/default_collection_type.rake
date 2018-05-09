@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :hyrax do
   namespace :default_collection_types do
     desc "Create Default Collection Types"

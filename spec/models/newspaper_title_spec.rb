@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work NewspaperTitle`
-require 'spec_helper'
-require 'model_shared'
+require "spec_helper"
+require "model_shared"
 
 RSpec.describe NewspaperTitle do
-
   before(:all) do
     @fixture = model_fixtures(NewspaperTitle)
   end

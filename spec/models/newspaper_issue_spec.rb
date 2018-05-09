@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work NewspaperIssue`
-require 'spec_helper'
-require 'model_shared'
+require "spec_helper"
+require "model_shared"
 
 RSpec.describe NewspaperIssue do
-
   before(:all) do
     @fixture = model_fixtures(NewspaperIssue)
   end
@@ -52,5 +53,4 @@ RSpec.describe NewspaperIssue do
       end
     end
   end
-
 end

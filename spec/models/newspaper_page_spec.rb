@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work NewspaperPage`
-require 'spec_helper'
-require 'model_shared'
+require "spec_helper"
+require "model_shared"
 
 RSpec.describe NewspaperPage do
-
   before(:all) do
     @fixture = model_fixtures(NewspaperPage)
   end
 
-  it_behaves_like('a work and PCDM object')
-  it_behaves_like('a persistent work type')
+  it_behaves_like("a work and PCDM object")
+  it_behaves_like("a persistent work type")
 
   describe "Relationship methods" do
     it "has expected test fixture" do
@@ -50,5 +51,4 @@ RSpec.describe NewspaperPage do
       expect(publication).to be_an_instance_of(NewspaperTitle)
     end
   end
-
 end

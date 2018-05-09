@@ -1,5 +1,6 @@
-RSpec.describe "ScannedMediaMetadata" do
+# frozen_string_literal: true
 
+RSpec.describe "ScannedMediaMetadata" do
   before do
     class ScannedMediaWork < ActiveFedora::Base
       include ::Hyrax::WorkBehavior
@@ -22,16 +23,16 @@ RSpec.describe "ScannedMediaMetadata" do
 
   it "work can set/get properties" do
     work = ScannedMediaWork.new
-    work.section = 'foo'
-    expect(work.section).to include 'foo'
+    work.section = "foo"
+    expect(work.section).to include "foo"
   end
 
   it "work using mixin saves" do
     work = ScannedMediaWork.new
-    work.title = ['label able label']
+    work.title = ["label able label"]
     expect(work.id).to be_nil
     work.save!
     expect(work.id).to_not be_nil
-    expect(ScannedMediaWork.all.map { |w| w.id }).to include(work.id)
+    expect(ScannedMediaWork.all.map(&:id)).to include(work.id)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewspaperIssue < ActiveFedora::Base
   # WorkBehavior mixes in minimal ::Hyrax::CoreMetadata fields of
   # depositor, title, date_uploaded, and date_modified.
@@ -11,9 +13,9 @@ class NewspaperIssue < ActiveFedora::Base
 
   # Validation and required fields:
   # self.required_fields = [:resource_type, :genre, :language, :held_by]
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 
-  self.human_readable_type = 'Newspaper Issue'
+  self.human_readable_type = "Newspaper Issue"
 
   # TODO: Reel #: https://github.com/samvera-labs/uri_selection_wg/issues/2
 
@@ -21,7 +23,7 @@ class NewspaperIssue < ActiveFedora::Base
   property(
     :edition,
     predicate: ::RDF::Vocab::BIBO.edition,
-    multiple: false
+    multiple: false,
   ) do |index|
     index.as :stored_searchable
   end
@@ -30,7 +32,7 @@ class NewspaperIssue < ActiveFedora::Base
   property(
     :extent,
     predicate: ::RDF::Vocab::DC.extent,
-    multiple: false
+    multiple: false,
   ) do |index|
     index.as :stored_searchable
   end
@@ -40,16 +42,15 @@ class NewspaperIssue < ActiveFedora::Base
 
   # relationship methods
   def publication
-    result = self.member_of.select { |v| v.instance_of?(NewspaperTitle) }
-    result[0] unless result.length == 0
+    result = member_of.select { |v| v.instance_of?(NewspaperTitle) }
+    result[0] unless result.empty?
   end
 
   def articles
-    self.members.select { |v| v.instance_of?(NewspaperArticle) }
+    members.select { |v| v.instance_of?(NewspaperArticle) }
   end
 
   def pages
-    self.members.select { |v| v.instance_of?(NewspaperPage) }
+    members.select { |v| v.instance_of?(NewspaperPage) }
   end
-
 end

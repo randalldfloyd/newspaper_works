@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewspaperContainer < ActiveFedora::Base
   # WorkBehavior mixes in minimal ::Hyrax::CoreMetadata fields of
   # depositor, title, date_uploaded, and date_modified.
@@ -12,14 +14,13 @@ class NewspaperContainer < ActiveFedora::Base
 
   # Validation and required fields:
   # self.required_fields = [:resource_type, :genre, :language, :held_by]
-  validates :title, presence: { message: 'A newspaper container requires a title.' }
+  validates :title, presence: { message: "A newspaper container requires a title." }
 
-  self.human_readable_type = 'Newspaper Container'
+  self.human_readable_type = "Newspaper Container"
 
   # == Type-specific properties ==
 
   # TODO: DRY on the indexing of fields, the index block is repetative...
-
 
   #  - Type (TODO: make a behavior mixin for common fields)
 
@@ -27,7 +28,7 @@ class NewspaperContainer < ActiveFedora::Base
   property(
     :extent,
     predicate: ::RDF::Vocab::DC.extent,
-    multiple: false
+    multiple: false,
   ) do |index|
     index.as :stored_searchable
   end
@@ -39,14 +40,13 @@ class NewspaperContainer < ActiveFedora::Base
   include ::Hyrax::BasicMetadata
 
   # relationship methods
-  
+
   def publication
-    result = self.member_of.select { |v| v.instance_of?(NewspaperTitle) }
-    result[0] unless result.length == 0
+    result = member_of.select { |v| v.instance_of?(NewspaperTitle) }
+    result[0] unless result.empty?
   end
 
   def pages
-    self.members.select { |v| v.instance_of?(NewspaperPage) }
+    members.select { |v| v.instance_of?(NewspaperPage) }
   end
-
 end

@@ -1,5 +1,6 @@
-RSpec.describe "NewspaperCoreMetadata" do
+# frozen_string_literal: true
 
+RSpec.describe "NewspaperCoreMetadata" do
   before do
     class NewspaperishWork < ActiveFedora::Base
       include ::Hyrax::WorkBehavior
@@ -23,17 +24,17 @@ RSpec.describe "NewspaperCoreMetadata" do
 
   it "work can set/get properties" do
     work = NewspaperishWork.new
-    work.genre = ['http://cv.iptc.org/newscodes/genre/Opinion']
-    expect(work.genre).to include 'http://cv.iptc.org/newscodes/genre/Opinion'
+    work.genre = ["http://cv.iptc.org/newscodes/genre/Opinion"]
+    expect(work.genre).to include "http://cv.iptc.org/newscodes/genre/Opinion"
   end
 
   it "work using mixin saves" do
     work = NewspaperishWork.new
-    work.place_of_publication = ['http://www.geonames.org/5780993/about.rdf']
-    work.genre = ['http://cv.iptc.org/newscodes/genre/Opinion']
+    work.place_of_publication = ["http://www.geonames.org/5780993/about.rdf"]
+    work.genre = ["http://cv.iptc.org/newscodes/genre/Opinion"]
     expect(work.id).to be_nil
     work.save!
     expect(work.id).to_not be_nil
-    expect(NewspaperishWork.all.map { |w| w.id }).to include(work.id)
+    expect(NewspaperishWork.all.map(&:id)).to include(work.id)
   end
 end

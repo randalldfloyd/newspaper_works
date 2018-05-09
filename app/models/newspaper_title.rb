@@ -1,4 +1,6 @@
- # NewspaperTitle: object for a publication/title
+# frozen_string_literal: true
+
+# NewspaperTitle: object for a publication/title
 class NewspaperTitle < ActiveFedora::Base
   # WorkBehavior mixes in minimal ::Hyrax::CoreMetadata fields of
   # depositor, title, date_uploaded, and date_modified.
@@ -14,7 +16,7 @@ class NewspaperTitle < ActiveFedora::Base
   # Validation and required fields:
   # self.required_fields = [:resource_type, :genre, :language, :held_by]
   validates :title, presence: {
-    message: 'A newspaper title a title (publication name).'
+    message: "A newspaper title a title (publication name).",
   }
 
   # validations below causing save failures
@@ -28,7 +30,7 @@ class NewspaperTitle < ActiveFedora::Base
   #   message: 'A newspaper title requires a genre.'
   # }
 
-  self.human_readable_type = 'Newspaper Title'
+  self.human_readable_type = "Newspaper Title"
 
   # == Type-specific properties ==
 
@@ -36,7 +38,7 @@ class NewspaperTitle < ActiveFedora::Base
   property(
     :edition,
     predicate: ::RDF::Vocab::BIBO.edition,
-    multiple: false
+    multiple: false,
   ) do |index|
     index.as :stored_searchable
   end
@@ -44,41 +46,39 @@ class NewspaperTitle < ActiveFedora::Base
   # - Frequency
   property(
     :frequency,
-    predicate: ::RDF::URI.new('http://www.rdaregistry.info/Elements/u/P60538'),
-    multiple: true
+    predicate: ::RDF::URI.new("http://www.rdaregistry.info/Elements/u/P60538"),
+    multiple: true,
   ) do |index|
     index.as :stored_searchable
   end
 
   # Preceded by
   property(
-      :preceded_by,
-      predicate: ::RDF::URI.new('http://rdaregistry.info/Elements/u/P60261'),
-      multiple: true
+    :preceded_by,
+    predicate: ::RDF::URI.new("http://rdaregistry.info/Elements/u/P60261"),
+    multiple: true,
   ) do |index|
     index.as :stored_searchable
   end
 
   # Succeeded by
   property(
-      :succeeded_by,
-      predicate: ::RDF::URI.new('http://rdaregistry.info/Elements/u/P60278'),
-      multiple: true
+    :succeeded_by,
+    predicate: ::RDF::URI.new("http://rdaregistry.info/Elements/u/P60278"),
+    multiple: true,
   ) do |index|
     index.as :stored_searchable
   end
-
 
   # BasicMetadata must be included last
   include ::Hyrax::BasicMetadata
 
   # relationship methods:
   def issues
-    self.members.select { |v| v.instance_of?(NewspaperIssue) }
+    members.select { |v| v.instance_of?(NewspaperIssue) }
   end
 
   def containers
-    self.members.select { |v| v.instance_of?(NewspaperContainer) }
+    members.select { |v| v.instance_of?(NewspaperContainer) }
   end
-
 end

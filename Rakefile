@@ -9,6 +9,12 @@ require 'engine_cart/rake_task'
 
 # Rails.application.load_tasks
 
+task test: :rubocop
+
+task :rubocop do
+  sh 'rubocop'
+end
+
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -36,9 +42,3 @@ Dir.glob('tasks/*.rake').each { |r| import r }
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
 task default: :ci
-
-task test: :rubocop
-
-task :rubocop do
-  sh 'rubocop'
-end

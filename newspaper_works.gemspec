@@ -32,4 +32,7 @@ SUMMARY
   spec.add_development_dependency 'rspec-rails', '~> 3.1'
   spec.add_development_dependency 'solr_wrapper', '~> 0.4'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'yard'
+
+  spec.metadata['yard.run'] = 'yri'
 end

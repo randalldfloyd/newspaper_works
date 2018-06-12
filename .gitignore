@@ -34,3 +34,6 @@ Gemfile.lock
 
 # Ignore Gemfile.lock
 Gemfile.lock
+
+# Ignore pkg directory
+/pkg/*

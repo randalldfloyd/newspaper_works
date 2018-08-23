@@ -4,7 +4,28 @@ ENV['RAILS_ENV'] ||= 'test'
 # engine_cart:
 require 'bundler/setup'
 require 'engine_cart'
+
+if coverage_needed?
+  require 'simplecov'
+  require 'coveralls'
+  SimpleCov.root(File.expand_path('../..', __FILE__))
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.start('rails') do
+    add_filter '/.internal_test_app'
+    add_filter '/lib/generators'
+    add_filter '/spec'
+    add_filter '/tasks'
+    add_filter '/lib/hyrax/version.rb'
+    add_filter '/lib/hyrax/engine.rb'
+  end
+  SimpleCov.command_name 'spec'
+end
+
 EngineCart.load_application!
+
+def coverage_needed?
+  ENV['COVERAGE'] || ENV['TRAVIS']
+end
 
 RSpec.configure do |config|
   # enable FactoryBot:

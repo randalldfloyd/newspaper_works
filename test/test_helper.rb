@@ -1,6 +1,9 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = 'test'
 
+require 'coveralls'
+Coveralls.wear!
+
 ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)
 require 'rails/test_help'
 

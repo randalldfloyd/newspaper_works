@@ -7,7 +7,7 @@ require 'newspaper_works/version'
 Gem::Specification.new do |spec|
   spec.name        = 'newspaper_works'
   spec.version     = NewspaperWorks::VERSION
-  spec.authors     = ['Sean Upton', 'Jacob Reed', 'Brian McBride',
+  spec.authors     = ['Sean Upton ', 'Jacob Reed', 'Brian McBride',
                       'Eben English']
   spec.email       = ['sean.upton@utah.edu', 'jacob.reed@utah.edu',
                       'brian.mcbride@utah.edu', 'eenglish@bpl.org']
